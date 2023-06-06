@@ -354,7 +354,7 @@ class Drei_Wurfel(AnzahlDerWurfel):
         #Selbe Prinzip...wenn 3 Würfel gewählt wurden sind
         if anzahl_wurfel==3:
                 
-            while round1 < 3:    
+            for round1 in range(3):    
 
                 if janein == "J":
 
@@ -403,7 +403,7 @@ class Drei_Wurfel(AnzahlDerWurfel):
 
             
 
-            while round2 < 3:
+            for round2 in range(3):
 
                 if janein == "J":
 
