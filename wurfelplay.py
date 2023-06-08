@@ -33,15 +33,6 @@ def abrufen_eingabe():
 
     return player1, player2 
 
-abrufen = abrufen_eingabe()
-
-    
-spieler = Wurfelplay(abrufen[0], abrufen[1])
-spieler.playgame()
-
-#Hier wird das Paket aufgerufen, außerhalb wurde eine txt Datei ersetllt (oben wird sie importiert)
-abfrage_aufrufen.anzeigen()
-
 #Hier habe ich eine extra Klasse erstellt, die von Wurfelplay erbet
 class AnzahlDerWurfel(Wurfelplay):
 
@@ -84,9 +75,7 @@ class AnzahlDerWurfel(Wurfelplay):
 
     
     
-anzahlwurfel = AnzahlDerWurfel(abrufen[0], abrufen[1])
-speicherung_der_anzahl_wuerfel = anzahlwurfel.wurfeln()
-print("Sie haben", speicherung_der_anzahl_wuerfel,"Würfel ausgewählt.")
+
 
 
 #Hier ist die Klasse für einen Wurfel, erbt von der Anzahl Klasse
@@ -205,9 +194,6 @@ class EinenWurfel(AnzahlDerWurfel):
                 exit()        
 
 
-aufrufen = EinenWurfel(abrufen[0], abrufen[1])
-aufrufen.wurfelen(speicherung_der_anzahl_wuerfel)
-
 
 #Klasse für 2 Würfel
 class Zwei_Wurfel(AnzahlDerWurfel):
@@ -324,8 +310,6 @@ class Zwei_Wurfel(AnzahlDerWurfel):
                 exit()        
 
 
-aufrufen = Zwei_Wurfel(abrufen[0], abrufen[1])
-aufrufen.wurfelen(speicherung_der_anzahl_wuerfel)
 
 #Klasse für die 3 Würfel
 class Drei_Wurfel(AnzahlDerWurfel):
@@ -334,6 +318,7 @@ class Drei_Wurfel(AnzahlDerWurfel):
         super().__init__(playerone, playertwo)
         
     def punkteanzeigen(self, punktezahl = []):
+
 
         self.punktezahl = punktezahl
 
@@ -450,9 +435,40 @@ class Drei_Wurfel(AnzahlDerWurfel):
                 exit()        
 
 
-aufrufen = Drei_Wurfel(abrufen[0], abrufen[1])
-aufrufen.wurfelen(speicherung_der_anzahl_wuerfel)
 
+abrufen = abrufen_eingabe()
+
+spieler = Wurfelplay(abrufen[0], abrufen[1])
+spieler.playgame()
+
+#Hier wird das Paket aufgerufen, außerhalb wurde eine txt Datei ersetllt (oben wird sie importiert)
+abfrage_aufrufen.anzeigen()
+
+anzahlwurfel = AnzahlDerWurfel(abrufen[0], abrufen[1])
+
+speicherung_der_anzahl_wuerfel = anzahlwurfel.wurfeln()
+
+print("Sie haben", speicherung_der_anzahl_wuerfel,"Würfel ausgewählt.")
+
+if speicherung_der_anzahl_wuerfel == 1:
+
+    aufrufen1 = EinenWurfel(abrufen[0], abrufen[1])
+
+    aufrufen1.wurfelen(speicherung_der_anzahl_wuerfel)
+
+elif speicherung_der_anzahl_wuerfel == 2:
+
+    aufrufen2 = Zwei_Wurfel(abrufen[0], abrufen[1])
+
+    aufrufen2.wurfelen(speicherung_der_anzahl_wuerfel)
+
+elif speicherung_der_anzahl_wuerfel == 3:
+
+    aufrufen3 = Drei_Wurfel(abrufen[0], abrufen[1])
+    aufrufen3.wurfelen(speicherung_der_anzahl_wuerfel)
+
+else:
+    print("No valid input")
 
            
 
