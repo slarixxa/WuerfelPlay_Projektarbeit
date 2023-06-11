@@ -264,6 +264,7 @@ class Zwei_Wurfel(AnzahlDerWurfel):
                 exit()
 
             round2 = 0
+            
             self.punktezahl.clear()
 
             while round2 < 3:
