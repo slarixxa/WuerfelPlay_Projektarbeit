@@ -1,4 +1,4 @@
-import random, time, abfrage_aufrufen
+import random, time, abfrage_aufrufen, json
 
 #Ich erstelle als erstes eine Klasse für die jeweilgen Spieler
 class Wurfelplayer:
@@ -183,15 +183,15 @@ class EinenWurfel(AnzahlDerWurfel):
             #Hier werden die Summe der Spieler verglichen, der Spieler mit der höheren Punktzahl hat gewonnen
             if summe1>summe2:
                 print(f"Der Spieler {self.playerone} hat gewonnen mit {summe1} Punkte")
-                exit()
+                return (summe1, summe2)
 
             elif summe1<summe2:
                 print(f"Der Spieler {self.playertwo} hat gewonnen mit {summe2} Punkten")
-                exit()
+                return (summe1, summe2)
 
             elif summe1==summe2:
                 print("Unendschieden")
-                exit()        
+                return (summe1, summe2)        
 
 
 
@@ -299,16 +299,16 @@ class Zwei_Wurfel(AnzahlDerWurfel):
 
             if summe1>summe2:
                 print(f"Der Spieler {self.playerone} hat gewonnen mit {summe1} Punkte")
-                exit()
+                return (summe1, summe2)
 
 
             elif summe1<summe2:
                 print(f"Der Spieler {self.playertwo} hat gewonnen mit {summe2} Punkten")
-                exit()
+                return (summe1, summe2)
 
             elif summe1==summe2:
                 print("Unendschieden")
-                exit()        
+                return (summe1, summe2)        
 
 
 
@@ -317,6 +317,8 @@ class Drei_Wurfel(AnzahlDerWurfel):
 
     def __init__(self, playerone, playertwo):
         super().__init__(playerone, playertwo)
+
+
         
     def punkteanzeigen(self, punktezahl = []):
 
@@ -424,16 +426,16 @@ class Drei_Wurfel(AnzahlDerWurfel):
 
             if summe1>summe2:
                 print(f"Der Spieler {self.playerone} hat gewonnen mit {summe1} Punkte")
-                exit()
+                return (summe1, summe2)
 
 
             elif summe1<summe2:
                 print(f"Der Spieler {self.playertwo} hat gewonnen mit {summe2} Punkten")
-                exit()
+                return (summe1, summe2)
 
             elif summe1==summe2:
                 print("Unendschieden")
-                exit()        
+                return (summe1, summe2)        
 
 
 
@@ -455,22 +457,61 @@ if speicherung_der_anzahl_wuerfel == 1:
 
     aufrufen1 = EinenWurfel(abrufen[0], abrufen[1])
 
-    aufrufen1.wurfelen(speicherung_der_anzahl_wuerfel)
+    _sum_tupel = aufrufen1.wurfelen(speicherung_der_anzahl_wuerfel)
 
 elif speicherung_der_anzahl_wuerfel == 2:
 
     aufrufen2 = Zwei_Wurfel(abrufen[0], abrufen[1])
 
-    aufrufen2.wurfelen(speicherung_der_anzahl_wuerfel)
+    _sum_tupel = aufrufen2.wurfelen(speicherung_der_anzahl_wuerfel)
 
 elif speicherung_der_anzahl_wuerfel == 3:
 
     aufrufen3 = Drei_Wurfel(abrufen[0], abrufen[1])
-    aufrufen3.wurfelen(speicherung_der_anzahl_wuerfel)
+    _sum_tupel = aufrufen3.wurfelen(speicherung_der_anzahl_wuerfel)
 
 else:
     print("No valid input")
 
+
+
+
+from pathlib import Path
+
+
+Path('history.json').touch()
+
+with open("history.json","r", encoding='utf-8') as f:
+
+  inhalt = f.read()
+
+   
+
+if inhalt != '': 
+
+  daten = json.loads(inhalt)
+
+else:
+
+    daten = {}  
+
+
+daten.update({f'spiel_{len(daten)}': { "player_1": abrufen[0],
+
+    "player_2": abrufen[1],
+
+    "summe1": _sum_tupel[0],
+
+    "summe2": _sum_tupel[1]}})
+
+
+# Die JSON-Datei, in der unser Dictionary gespeichert wird
+
+with open("history.json", "w") as w:
+
+  # Dictionary mit .dump in der Datei speichern
+
+  json.dump(daten, w)
            
 
 
